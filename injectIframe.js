@@ -1,25 +1,32 @@
 (function () {
+  let isMinimized = false;
+  var curr_window_width;
+  var curr_window_height;
+  
   if (document.getElementById('gemini-extension-iframe-wrapper')) return;
-
+  
   const selectedText = window.getSelection().toString().trim();
-
+  
   // Create a container div for drag + resize
   const wrapper = document.createElement('div');
+  wrapper.style.transition = 'height 0.3s ease, padding 0.3s ease';
   wrapper.id = 'gemini-extension-iframe-wrapper';
+  
   wrapper.style.cssText = `
     position: fixed;
     bottom: 20px;
     right: 20px;
     width: 400px;
     height: 350px;
-    min-width: 300px;
-    min-height: 280px;
+    min-width: 10px;
+    min-height: 10px;
     border: 2px solid #4285f4;
     border-radius: 8px;
     z-index: 999999;
     background: #fff;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-    box-sizing: border-box;
+
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   `;
 
@@ -43,6 +50,78 @@
   const titleSpan = document.createElement('span');
   titleSpan.textContent = 'Gemini Assistant';
   dragBar.appendChild(titleSpan);
+
+
+
+
+
+
+  const UIOptions = document.createElement('div');
+  UIOptions.style.cssText = `
+    display: flex;
+  `;
+  //Minimise button
+  const minimizeBtn = document.createElement('button');
+minimizeBtn.innerHTML = '−';
+minimizeBtn.style.cssText = `
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: background-color 0.2s;
+`;
+minimizeBtn.addEventListener('mouseenter', () => {
+  minimizeBtn.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+});
+minimizeBtn.addEventListener('mouseleave', () => {
+  minimizeBtn.style.backgroundColor = 'transparent';
+});
+
+
+
+// Add transition for smooth animation
+
+minimizeBtn.addEventListener('click', () => {
+  
+
+  if (!isMinimized) {
+    curr_window_width=wrapper.style.width;
+    curr_window_height=wrapper.style.height;
+
+    wrapper.style.height = '25px';
+    // wrapper.style.padding = '0px 15px';
+    wrapper.style.overflow = 'hidden';
+    isMinimized = true;
+    console.log("Minimized");
+    console.log("Minimised"+"  "+curr_window_height+"  "+curr_window_width);
+  } else {
+    wrapper.style.height = curr_window_height;
+    // wrapper.style.padding = '15px';
+    wrapper.style.overflow = 'auto';
+    isMinimized = false;
+    console.log("Restored");
+  }
+});
+
+
+
+
+
+
+
+
+
+
+UIOptions.appendChild(minimizeBtn);
+
 
   // Close button
   const closeBtn = document.createElement('button');
@@ -71,8 +150,15 @@
   closeBtn.addEventListener('click', () => {
     wrapper.remove();
   });
-  dragBar.appendChild(closeBtn);
+  UIOptions.appendChild(closeBtn);
 
+
+
+
+  ///////////////////////////////////////////////////////////////////////////
+
+
+  dragBar.appendChild(UIOptions);
   wrapper.appendChild(dragBar);
 
   // Content area (replacing iframe with direct content)
@@ -82,9 +168,10 @@
     height: calc(100% - 36px);
     padding: 15px;
     box-sizing: border-box;
-    background: #f8f9fa;
+    background:rgb(1, 6, 12);
     overflow-y: auto;
     position: relative;
+
   `;
 
   // Dark mode toggle
@@ -385,11 +472,12 @@
 
     if (isResizing) {
       const rect = wrapper.getBoundingClientRect();
-      const newWidth = Math.max(300, e.clientX - rect.left);
-      const newHeight = Math.max(280, e.clientY - rect.top);
-      
+      const newWidth = Math.max(250, e.clientX - rect.left);
+      const newHeight = Math.max(300,e.clientY - rect.top);
       wrapper.style.width = newWidth + 'px';
       wrapper.style.height = newHeight + 'px';
+
+
     }
   });
 
