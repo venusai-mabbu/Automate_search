@@ -71,7 +71,5 @@ app.post('/generate', async (req, res) => {
     res.send(result.response.text());
 });
 
-app.listen(port, async() => {
-    console.log("port "+port);
-   await console.log(`Server is running at http://localhost:${port}`);
+app.listen(port, () => {
 });
