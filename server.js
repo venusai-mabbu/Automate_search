@@ -27,8 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/generate', async (req, res) => {
     const inputText = req.body.inputText;
 
-    // const apiKey = 'AIzaSyD9Ot9RNw57Lno2QZ-USEzYnS0fu3aFt80';
-    //'AIzaSyD9Ot9RNw57Lno2QZ-USEzYnS0fu3aFt80'
+    
     const genAI = new GoogleGenerativeAI(apiKey);
 
     const model = genAI.getGenerativeModel({
