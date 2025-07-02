@@ -293,8 +293,13 @@
     //   responseDiv.textContent = 'Please enter a prompt first.';
     //   return;
     // }
+    var combinedText='';
+    if(selected=="No text currently selected on the page")
+       combinedText= prompt;
+    else
+       combinedText= prompt + ': ' + selected;
 
-    const combinedText = prompt + ': ' + selected;
+
     console.log(combinedText);
     responseDiv.textContent = 'Loading...';
     sendBtn.disabled = true;
