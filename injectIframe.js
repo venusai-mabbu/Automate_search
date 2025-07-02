@@ -96,7 +96,9 @@ minimizeBtn.addEventListener('click', () => {
     curr_window_width=wrapper.style.width;
     curr_window_height=wrapper.style.height;
 
-    wrapper.style.height = '25px';
+    wrapper.style.height = '28px';
+    wrapper.style.width = '180px';
+
     // wrapper.style.padding = '0px 15px';
     wrapper.style.overflow = 'hidden';
     isMinimized = true;
@@ -104,6 +106,8 @@ minimizeBtn.addEventListener('click', () => {
     console.log("Minimised"+"  "+curr_window_height+"  "+curr_window_width);
   } else {
     wrapper.style.height = curr_window_height;
+    wrapper.style.width = curr_window_width;
+
     // wrapper.style.padding = '15px';
     wrapper.style.overflow = 'auto';
     isMinimized = false;
@@ -168,7 +172,7 @@ UIOptions.appendChild(minimizeBtn);
     height: calc(100% - 36px);
     padding: 15px;
     box-sizing: border-box;
-    background:rgb(1, 6, 12);
+    background:#f8f9fa;
     overflow-y: auto;
     position: relative;
 

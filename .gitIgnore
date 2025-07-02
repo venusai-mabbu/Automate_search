@@ -1,4 +1,4 @@
-logs
+logs.txt
 .env
 node_modules
 content.js
